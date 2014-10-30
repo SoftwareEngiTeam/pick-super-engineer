@@ -1,4 +1,3 @@
-
 def pick_engineer
    """
    Function: pick_engineer
@@ -7,8 +6,13 @@ def pick_engineer
    engineers = File.open('engineers.txt').read.split("\n")
    engineer_name = engineers[Random.rand(0...engineers.size())]
 end
-
+name = pick_engineer
+def featureA (name)
+   #puts pick_engineer
+   name.to_s.gsub(' ','.')
+end
 
 if __FILE__ == $0
-   puts pick_engineer #print engineer name
+   puts name #print engineer name
+   puts featureA(name)
 end
