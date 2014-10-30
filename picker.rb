@@ -1,38 +1,53 @@
-#function random engineername.
-def pick_engineer
-   """
-   Function: pick_engineer
-   Description: pick an engineer name from file.
-   """
-   engineers = File.open('engineers.txt').read.split("\n")
-   engineer_name = engineers[Random.rand(0...engineers.size())]
-end
+#--run 'ruby picker.rb string for find' in terminal--  
 
-def featureA (name)
-   name.to_s.gsub(' ','.') #puts pick_engineer
-end
+class Pick_super_engineer
+   #create global value.
+   def initialize(engineer)
+      @engineer = engineer
+   end
 
-def feature_b(pick_engineer)
-   index = pick_engineer.split #split name and lastname in array	
-   index[0]+" "+index[1].chr+"..." #show name and first character lastname and ...
-end
+   #featureA change ' ' to '.'
+   def featureA (engineer_name)
+      puts "FeatureA : "+ (engineer_name.to_s.gsub(' ','.')).to_s #puts pick_engineer
+   end
 
-def feature_C
-   #get argument
-   cha = ARGV.map {|i| "" + i.to_s + ""}.join(",")
-   engineer = File.open('engineers.txt').read.split("\n").each do |line|
-   #file = File.read('engineers.txt').each_line do |line| 
-     if line.include? "#{cha.to_s}"
-       puts "finding #{cha} --> #{line}"
-     end
+   #featueB put '...' after first character lastname.
+   def feature_b(engineer_name)
+      index = engineer_name.split(" ") #split name and lastname in array	
+      puts "FeatureB : "+ (index[0]+" "+index[1].chr+"...").to_s #show name and first character lastname and ...
+   end
+
+   #featureC find engineer name in engineers.txt
+   def feature_C
+      cha = ARGV[0].to_s #receive value to find.
+      cha_list = Array.new
+      #case no value to find.
+      if cha.empty?
+         engineer_name = @engineer.sample #random engineer name.
+         featureA(engineer_name)
+         feature_b(engineer_name)
+         puts "FeatureC : no search in FeatureC"
+      #case have value to find.
+      else
+         cha_list.push(@engineer.find {|i| i.include? cha}) #find engineer name in engineers.txt.
+	 #case not find engineer name.
+         if cha_list == [nil]
+            engineer_name = @engineer.sample #random engineer name.
+            featureA(engineer_name)
+            feature_b(engineer_name)
+            puts "FeatureC : not find engineer name!"
+	 #case have engineer name from find.
+         else
+            featureA(cha_list[0])
+            feature_b(cha_list[0])
+            puts "FeatureC : "+ cha_list[0].to_s
+         end
+      end
    end
 end
 
-if __FILE__ == $0
-   name_e = pick_engineer
-   puts name_e #print engineer name
-   puts featureA(name_e) #show engineer name from featureA
-   puts feature_b(name_e) #show engineer name from feature_b
-   feature_C # get argument when -- run ruby test.rb aaa --
-end
+#read file and create new class.
+engineer = File.readlines('engineers.txt')
+name_e = Pick_super_engineer.new(engineer)
+name_e.feature_C
 
