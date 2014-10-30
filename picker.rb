@@ -8,7 +8,14 @@ def pick_engineer
    engineer_name = engineers[Random.rand(0...engineers.size())]
 end
 
-
-if __FILE__ == $0
-   puts pick_engineer #print engineer name
+def feature_C(cha)
+   engineer = File.open('engineers.txt').read.split("\n").each do |line|
+   #file = File.read('engineers.txt').each_line do |line| 
+     if line.include? "#{cha}"
+       puts "finding #{cha} --> #{line}"
+     end
+   end
 end
+
+puts pick_engineer #print engineer name
+feature_C("ong")
