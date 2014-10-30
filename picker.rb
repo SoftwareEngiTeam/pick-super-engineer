@@ -9,6 +9,7 @@ def pick_engineer
 end
 
 def feature_C
+   #get argument
    cha = ARGV.map {|i| "" + i.to_s + ""}.join(",")
    engineer = File.open('engineers.txt').read.split("\n").each do |line|
    #file = File.read('engineers.txt').each_line do |line| 
