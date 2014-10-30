@@ -10,7 +10,6 @@ end
 
 def feature_C
    cha = ARGV.map {|i| "" + i.to_s + ""}.join(",")
-   print cha
    engineer = File.open('engineers.txt').read.split("\n").each do |line|
    #file = File.read('engineers.txt').each_line do |line| 
      if line.include? "#{cha.to_s}"
@@ -20,5 +19,5 @@ def feature_C
 end
 
 puts pick_engineer #print engineer name
-feature_C
+feature_C # get argument when -- run ruby test.rb aaa --
 
